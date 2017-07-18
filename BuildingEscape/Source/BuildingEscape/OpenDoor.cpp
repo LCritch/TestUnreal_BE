@@ -22,12 +22,19 @@ void UOpenDoor::BeginPlay()
 
 	// ...
 
+	actorThatOpens = GetWorld()->GetFirstPlayerController()->GetPawn();
+
+	
+}
+
+
+void UOpenDoor::OpenDoor()
+{
 	AActor* owner = GetOwner();
 
 	FRotator ownerRotator = FRotator(0.f,-60.f,0.f);
 
 	owner->SetActorRotation(ownerRotator);
-	
 }
 
 
@@ -37,5 +44,10 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
+	//poll trigger volume
+	if (pressurePlate->IsOverlappingActor(actorThatOpens))
+	{
+		OpenDoor();
+	}
 }
 
