@@ -19,6 +19,7 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 	void OpenDoor();
+	void CloseDoor();
 
 public:	
 	// Called every frame
@@ -27,11 +28,18 @@ public:
 
 private:
 	UPROPERTY(VisibleAnywhere)
-	float openAngle = 90.f;
+	float openAngle = -90.f;
 
 	UPROPERTY(EditAnywhere)
 	ATriggerVolume* pressurePlate;
 
+	UPROPERTY(EditAnywhere)
+	float doorCloseDelay = 1.f;
+
+	float lastDoorOpenTime;
+
 	AActor* actorThatOpens;
+
+	AActor* Owner;
 	
 };
