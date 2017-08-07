@@ -31,6 +31,7 @@ void UGrabber::Grab()
 	///if hit then attach phys handle
 	if (actorHit) 
 	{
+		if (!physHandle) { return; }
 		physHandle->GrabComponentAtLocationWithRotation(
 			compToGrab,
 			NAME_None,
@@ -42,6 +43,7 @@ void UGrabber::Grab()
 
 void UGrabber::Release()
 {
+	if (!physHandle) { return; }
 	physHandle->ReleaseComponent();
 }
 
@@ -78,7 +80,7 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 
 
 	//if physhandle attached, move object that is held
-
+	if (!physHandle) { return; }
 	if (physHandle->GrabbedComponent)
 	{
 		physHandle->SetTargetLocation(GetReachLineEnd());
