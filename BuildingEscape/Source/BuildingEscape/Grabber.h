@@ -25,7 +25,7 @@ public:
 
 private:
 	//how far is the distance the player can reach
-	float reach;
+	float reach = 100.f;
 
 	UPhysicsHandleComponent* physHandle = nullptr;
 	UInputComponent* inputComp = nullptr;
@@ -42,4 +42,9 @@ private:
 
 	//return hit for first physBody in reach
 	const FHitResult GetFirstPhysBodyInReach();
+
+	///return start and end of line trace
+	FVector GetReachLineStart();
+	FVector GetReachLineEnd();
+
 };
