@@ -27,15 +27,6 @@ void UOpenDoor::BeginPlay()
 }
 
 
-void UOpenDoor::OpenDoor()
-{
-	Owner->SetActorRotation(FRotator(0.f,openAngle,0.f));
-}
-
-void UOpenDoor::CloseDoor()
-{
-	Owner->SetActorRotation(FRotator(0.f,0.f,0.f));
-}
 
 
 // Called every frame
@@ -45,16 +36,15 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	
 	//if total mass of actors on pressure plate > something then allow the door open
 	//poll trigger volume
-	if (GetTotalMassOnPlate() > 30.f)
+	if (GetTotalMassOnPlate() > triggerMass)
 	{
-		OpenDoor();
-		lastDoorOpenTime = GetWorld()->GetTimeSeconds();
+		OnOpen.Broadcast();
+	}
+	else
+	{
+		OnClose.Broadcast();
 	}
 
-	if (GetWorld()->GetTimeSeconds() - lastDoorOpenTime > doorCloseDelay)
-	{
-		CloseDoor();
-	}
 
 }
 
